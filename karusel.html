@@ -430,8 +430,9 @@
       const prevBtn = document.getElementById("prevBtn");
       const nextBtn = document.getElementById("nextBtn");
 
-      /* как на скрине: по центру вторая карточка */
-      let index = Math.min(1, slides.length - 1);
+      /* стартуем с первой карточки от левого края вьюпорта */
+      let index = 0;
+      const startOffset = 0;
       let touchStartX = null;
 
       function readGapPx() {
@@ -444,10 +445,8 @@
       function applyTransform() {
         if (!slides.length) return;
         const gap = readGapPx();
-        const cardWidth = slides[0].offsetWidth;
-        const viewportWidth = viewport.offsetWidth;
-        const step = cardWidth + gap;
-        const translate = viewportWidth / 2 - cardWidth / 2 - index * step;
+        const step = slides[0].offsetWidth + gap;
+        const translate = startOffset - index * step;
         track.style.transform = "translateX(" + translate + "px)";
       }
 
